@@ -1,6 +1,7 @@
 package Graphs;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.List;
@@ -81,6 +82,31 @@ public class Dijkstra{
             }
         }
         return new DijkstraResults(distance, previous);
+    }
+    public List<Edge> performPrims(Node curr){
+        PriorityQueue<Edge> pq = new PriorityQueue<>();
+        Set<Node> visited = new HashSet<>();
+        List<Edge> list = new ArrayList<>();
+
+        pq.addAll(graph.get(curr));
+        visited.add(curr);
+
+        while(visited.size() < graph.keySet().size()){
+            Edge minEdge = pq.remove();
+            Node nextNode = minEdge.getTo();
+            if(visited.contains( nextNode )){
+                continue;
+            }
+            visited.add( nextNode );
+            list.add(minEdge);
+
+            for(Edge edge : graph.get(nextNode)){
+                if(!visited.contains(edge.getTo())){
+                    pq.add(edge);
+                }
+            }
+        }
+        return list;
     }
 
 }

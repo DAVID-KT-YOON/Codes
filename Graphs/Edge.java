@@ -1,5 +1,5 @@
 package Graphs;
-public class Edge implements Comparable<Edge>{
+class Edge implements Comparable<Edge>{
     private final Node to;
     private int value;
 

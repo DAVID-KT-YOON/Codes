@@ -1,5 +1,6 @@
 package Graphs;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -18,7 +19,26 @@ public class Graph {
         graph = new HashMap<>();
     }
 
+    public boolean hasCycle(char ch){
+        Set<Node> visited = new HashSet<>();
+        return hasCycle(new Node(ch), null, visited);
+    }
+    private boolean hasCycle(Node curr, Node parent, Set<Node> visited) {
 
+        visited.add(curr);
+        for (Node neighbor : graph.getOrDefault(curr, Collections.emptyList())) {
+            if (!visited.contains(neighbor)) {
+                if (hasCycle(neighbor, curr, visited)) {
+                    return true;
+                }
+            } else if (!neighbor.equals(parent)) {
+                // Found a visited node that is not the parent — cycle exists
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public void insert(char ch1, char ch2){
         insert(new Node(ch1), new Node(ch2));
     }
