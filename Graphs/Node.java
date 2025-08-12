@@ -1,3 +1,4 @@
+package Graphs;
 public class Node {
     private char ch;
 
@@ -15,10 +16,13 @@ public class Node {
                 return false;
             Node node = (Node)o;
             return ch == node.ch;
-
         }
         @Override
         public int hashCode(){
             return Character.hashCode(ch);
+        }
+        @Override
+        public String toString(){
+            return this.ch + " ";
         }
 }

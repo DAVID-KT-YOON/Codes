@@ -1,4 +1,5 @@
-public class Edge{
+package Graphs;
+public class Edge implements Comparable<Edge>{
     private final Node to;
     private int value;
 
@@ -15,6 +16,11 @@ public class Edge{
     }
     public int getValue(){
         return this.value;
+    }
+    @Override
+    public int compareTo(Edge other){
+        return Integer.compare(this.value, other.value);
+
     }
 }
     

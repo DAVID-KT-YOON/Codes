@@ -1,3 +1,4 @@
+package Graphs;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -113,16 +114,16 @@ public class Graph {
     }
 
     public String toString(){
-        StringBuilder stringbuilder = new StringBuilder();
-        for(Node key : graph.keySet()){
-            stringbuilder.append(key.getCh());
-            stringbuilder.append(" => ");
+        StringBuilder sb = new StringBuilder();
+        for (Node key : graph.keySet()){
+            sb.append(key.getCh());
+            sb.append(" => ");
             for(Node value : graph.get(key)){
-                stringbuilder.append(value.getCh()+ " ");
+                sb.append(value.getCh()+ " ");
             }
-            stringbuilder.append("\n");
+            sb.append("\n");
         }
-        return stringbuilder.toString();
+        return sb.toString();
     }
 
 
