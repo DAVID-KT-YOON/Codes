@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button } from './components/ui/button';
+import Chatbot from './components/chat/Chatbot';
 
 function App() {
    const [message, setMessage] = useState('');
@@ -10,9 +10,10 @@ function App() {
    }, []);
 
    return (
-      <div className="p-4">
-         <p className="font-bold p-4 text-3xl">{message}</p>
-         <Button variant="outline">Click me</Button>
+      <div className="flex justify-center">
+         <div className="p-4 h-screen w-2xl ">
+            <Chatbot />
+         </div>
       </div>
    );
 }
