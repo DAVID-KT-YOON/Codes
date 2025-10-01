@@ -1,17 +1,21 @@
 import React, { useEffect, useRef } from 'react';
 import ReactMarkDown from 'react-markdown';
+
 export type Message = {
    content: string;
    role: 'user' | 'bot';
 };
+
 type Props = {
    messages: Message[];
 };
+
 const ChatMessages = ({ messages }: Props) => {
    const lastMessageRef = useRef<HTMLParagraphElement | null>(null);
    useEffect(() => {
       lastMessageRef.current?.scrollIntoView({ behavior: 'smooth' });
    }, [messages]);
+
    const onCopy = (e: React.ClipboardEvent<HTMLDivElement>) => {
       const selection = window.getSelection()?.toString().trim();
       if (selection) {
@@ -19,6 +23,7 @@ const ChatMessages = ({ messages }: Props) => {
          e.clipboardData.setData('text/plain', selection);
       }
    };
+
    return (
       <div className="flex flex-col gap-3">
          {messages.map((message, index) => (

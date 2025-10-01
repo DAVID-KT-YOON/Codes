@@ -3,7 +3,12 @@ import { conversationRepository } from "../repositories/conversation.repository"
 import fs from 'fs';
 import path from 'path';
 import template from '../prompts/chatbot.txt';
-
+import type { Chat } from "openai/resources";
+import { error } from "console";
+import mysql from "mysql2/promise";
+import type { RowDataPacket } from "mysql2";
+import {pool} from "../database/connectToDB"
+import { logBotMessages, logConversationId, logUserMessages } from "../database/databaseQueries";
 /**
  * Create an OpenAI client instance.
  * Uses the API key stored in the .env file for secure authentication.
@@ -28,7 +33,6 @@ type ChatResponse ={
     id: string,
     message:string
 }
-
 /**
  * Chat service for sending messages to the LLM.
  *
@@ -41,6 +45,9 @@ type ChatResponse ={
  */
 export const chatService ={
     async sendMessage(prompt:string, conversationId:string):Promise<ChatResponse>{
+        const [conversations_result] = await logConversationId(conversationId);
+        const [messages_user_result] = await logUserMessages(conversationId,prompt);
+
         const response = await client.responses.create({
             model: 'gpt-4o-mini',
             instructions,
@@ -49,8 +56,11 @@ export const chatService ={
             max_output_tokens:200,
             previous_response_id:conversationRepository.getLastResponseId(conversationId)
         });
-        
+
+        const [result] = await logBotMessages(conversationId,response.output_text,response.id);
+
         conversationRepository.setLastResponseId(conversationId,response.id)
+
         return {
             id:response.id,
             message:response.output_text

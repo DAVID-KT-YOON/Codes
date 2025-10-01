@@ -1,5 +1,3 @@
-import React from 'react';
-
 /**
  * typingindicator that returns 3 dots that animate.
  */
