@@ -10,12 +10,16 @@ type Props = {
    messages: Message[];
 };
 
+/* parameter messages given from chatbot.tsx */
 const ChatMessages = ({ messages }: Props) => {
+   //setting of lastMessageRef to scroll into most recent conversation
    const lastMessageRef = useRef<HTMLParagraphElement | null>(null);
+   //useEffect to perform scrolling when dependency messages is touched
    useEffect(() => {
       lastMessageRef.current?.scrollIntoView({ behavior: 'smooth' });
    }, [messages]);
 
+   //onCopy to prevent copying a message and pasting it creating an empty space
    const onCopy = (e: React.ClipboardEvent<HTMLDivElement>) => {
       const selection = window.getSelection()?.toString().trim();
       if (selection) {
@@ -25,7 +29,7 @@ const ChatMessages = ({ messages }: Props) => {
    };
 
    return (
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 bg-yellow-500">
          {messages.map((message, index) => (
             <div
                key={index}

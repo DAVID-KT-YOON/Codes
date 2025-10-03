@@ -9,7 +9,7 @@ router.get('/', (req: Request, res: Response) => {
 });
 
 router.get('/api/hello', (req: Request, res: Response) => {
-   res.json({ message: 'Hello World' });
+   res.json({ message: 'Hello Guest' });
 });
 
 router.post('/api/chat',chatController.sendMessage);
